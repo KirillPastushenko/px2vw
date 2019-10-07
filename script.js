@@ -12,7 +12,7 @@ $(document).ready(function(){
 		  str = parseInt(str.replace('px',''))*k;
 		  return str.toFixed(3)+'vw';
 	});
-	$('#go').on('click',function(){
+	$('#go').on('click',function(){ 
 		$('#result').text(newStr);
 	})
 })

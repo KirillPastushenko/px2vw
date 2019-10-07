@@ -12,20 +12,19 @@
 			<input id="vh" name="ed" type="radio" value="vh"/><label for="vh">vh</label>
 		</div>
 		<br>
-		<div><label>Width\Height(px):</label><input id="k" type="text" /></div>
+		<div><label>Width\Height(px):</label><input id="k" type="text" value="1024" /></div>
+		<div><label>Сoefficient:</label><input id="с" type="text" value="1" /></div>
 		<br>
 		<textarea name="" id="" cols="30" rows="10"></textarea>
 		<div id="recalc">Recalculate!</div>
-		
 		<div id="result"></div>
 	</div>
+
 <style>
-
-#recalc{cursor:pointer;width: 156px;background-color: red;color: white;text-align: center;text-transform: uppercase;line-height: 40px;margin-top: 20px;}
-#flex-wrap{display: flex;flex-direction: column;flex-wrap: nowrap;justify-content: flex-start;align-items: flex-start;align-content: stretch;padding: 20px;}
-#result{padding: 20px 5px ;color: green;max-width: 500px;border: dotted 1px #ddd;margin-top: 20px}
-textarea{width:500px;margin-top:20px}
-
+	#recalc{cursor:pointer;width: 156px;background-color: red;color: white;text-align: center;text-transform: uppercase;line-height: 40px;margin-top: 20px;}
+	#flex-wrap{display: flex;flex-direction: column;flex-wrap: nowrap;justify-content: flex-start;align-items: flex-start;align-content: stretch;padding: 20px;}
+	#result{padding: 20px 5px ;color: green;max-width: 500px;border: dotted 1px #ddd;margin-top: 20px}
+	textarea{width:500px;margin-top:20px}
 </style>
 
 <script>
@@ -34,23 +33,37 @@ textarea{width:500px;margin-top:20px}
 
 
 $(document).ready(function(){
-	
 	$('#recalc').on('click',function(){
-		let k = $('#k').val();
+		let k = $('#k').val();  //Единицы измерения
+		let с = $('#с').val();  //Коэффициент
 		let strValue = $('textarea')[0].value;
-		let newStr = strValue.replace(/(\d\d*?)px/gm, function (str, offset, s) {
-		  str = parseInt(str.replace('px',''))*100/k;
- 		  return str.toFixed(3)+$('input[name="ed"]:checked').val();
+		let newStr = strValue.replace(/(\d+)(.?)(\d*)px/gm, function (str, offset, s) {
+			str = parseFloat(str.replace('px',''))*100*с/k;
+			return str.toFixed(3)+$('input[name="ed"]:checked').val();
 		});
 		$('#result').html(newStr);
-
 	})
-	
-	
-	
 })
+
+/*
+$(document).ready(function(){
+	$('#recalc').on('click',function(){
+		let с = $('#с').val();  //Коэффициент
+		let strValue = $('textarea')[0].value;
+		let newStr = strValue.replace(/(\d+)(.?)(\d*)vw/gm, function (str, offset, s) {
+			str = parseFloat(str.replace('vw',''))*с;
+			return str.toFixed(3)+$('input[name="ed"]:checked').val();
+		});
+		$('#result').html(newStr);
+	})
+})
+
+*/
+
+
 </script>
 
 </body>
 
 </html>
+
